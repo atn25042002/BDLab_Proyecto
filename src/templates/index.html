@@ -3,9 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sistema de Gestión de Inventarios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script>
+        function changeColor(){
+            document.getElementById("modify").setAttribute("class", "btn btn-primary")
+            document.getElementById("remove").setAttribute("class", "btn btn-primary")
+            document.getElementById("inactivate").setAttribute("class", "btn btn-primary")
+            document.getElementById("reactivate").setAttribute("class", "btn btn-primary")
+        }
+        function mod(){
+            changeColor()
+            document.getElementById("modify").setAttribute("class", "btn btn-success")
+            document.getElementById("nom").removeAttribute("readonly")
+            document.getElementById("est").setAttribute("value", "A")
+        }
+        function del(){
+            changeColor()
+            document.getElementById("remove").setAttribute("class", "btn btn-danger")
+            document.getElementById("nom").setAttribute("readonly", "true")
+            document.getElementById("est").setAttribute("value", "*")
+        }
+        function inac(){
+            changeColor()
+            document.getElementById("inactivate").setAttribute("class", "btn btn-success")
+            document.getElementById("nom").setAttribute("readonly", "true")
+            document.getElementById("est").setAttribute("value", "I")
+        }
+        function reac(){
+            changeColor()
+            document.getElementById("reactivate").setAttribute("class", "btn btn-success")
+            document.getElementById("nom").setAttribute("readonly", "true")
+            document.getElementById("est").setAttribute("value", "A")
+        }
+    </script>
 </head>
 <body>
     <h1 class="text-center mt-5 nb-5 text-primary">Sección</h1>
@@ -13,33 +45,12 @@
     <div class="container">
         <div class="card shadow">
             <div class="card-body">
-                <form action="/section" method="POST">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label> Código de la Sección </label>
-                            <input type="text" class="form-control mb-3" name="seccod"></imput>                            
-                        </div>
-                        <div class="col">
-                            <label> Nombre de la Sección </label>
-                            <input type="text" class="form-control mb-3" name="secnom"></imput>
-                        </div>
-                        <div class="col">
-                            <label> Estado de Registro </label>
-                            <input type="text" class="form-control  mb-3" name="secestreg"></imput>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-primary mb-3 mt-4" type="submit">Guardar</button>
-                        </div>
-                    </div>
-                </form>
-
                 <table class="table table-bordered">
                     <thead>
                         <th scope="col"> Código de Sección</th>
-                        <th scope="col"> Nombre de Sección</th>
+                        <th scope="col"> Nombre de Sección</th> 
                         <th scope="col"> Estado de Registro</th>
                         <th scope="col"> Editar</th>
-                        <th scope="col"> Eliminar</th>
                     </thead>
 
                     <tbody>
@@ -47,31 +58,46 @@
                         <tr>
                             <td>{{d.SecCod}}</td>
                             <td>{{d.SecNom}}</td>
-                            <td>{{d.SecEstReg}}</td>
+                            <td>{{d.SecEstReg.copy().pop()}}</td>
                             <td><button class="btn btn-primary btn-sm" id="btn-edit{{d.SecCod}}" data-bs-toggle="modal" data-bs-target="#modal{{d.SecCod}}">Editar</button></td>
-                            <td><a href="{{url_for('delete', seccod=d.SecCod)}}" class="btn btn-danger btn-sm">Delete</a></td>
-                        </tr>
+                            </tr>
 
                         <div class="modal fade" id="modal{{d.SecCod}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.SecCod}}</h1>
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.SecNom}}</h1>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="/edit/{{d.SecCod}}" method="post">
                                         <label> Código</label>
-                                        <input type="text" class="form-control  mb-3" name="seccod" value="{{d.SecCod}}"></imput>
+                                        <input type="text" class="form-control mb-3" id="cod" name="seccod" value="{{d.SecCod}}" readonly></input>
                                         <label> Nombre</label>
-                                        <input type="text" class="form-control  mb-3" name="secnom" value="{{d.SecNom}}"></imput>
+                                        <input type="text" class="form-control mb-3" id="nom" name="secnom" value="{{d.SecNom}}" readonly></input>
                                         <label> Estado de Registro</label>
-                                        <input type="text" class="form-control  mb-3" name="secestreg" value="{{d.SecEstReg}}"></imput>
+                                        <input type="text" class="form-control mb-3" id="est" name="secestreg" value="{{d.SecEstReg.copy().pop()}}" readonly></input>
                                     
                                 </div>
+                                <div class="modal-footer">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <button type="button" id="modify" onclick="mod()" class="btn btn-primary">Modificar</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" id="remove" onclick="del()" class="btn btn-primary">Eliminar</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" id="inactivate" onclick="inac()" class="btn btn-primary">Inactivar</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" id="reactivate" onclick="reac()" class="btn btn-primary">Reactivar</button>
+                                        </div>
+                                    </div>
+                                </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Actualizar</button>
                                     </div>
                                 </form>
                               </div>
@@ -79,10 +105,45 @@
                         </div>
                         {% endfor %}
                     </tbody>
-                </table>
+                </table>    
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col text-center">
+                        <button class="btn btn-primary btn-sm " data-bs-toggle="modal" data-bs-target="#modalCreate">Adicionar</button>
 
+                        <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Ingresando nuevos datos</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/section" method="POST">
+                                        <label> Código de la Sección </label>
+                                        <input type="text" class="form-control mb-3" name="seccod"></imput>                                                                                                     
+                                        <label> Nombre de la Sección </label>
+                                        <input type="text" class="form-control mb-3" name="secnom"></imput>                                                                                     
+                                        <label> Estado de Registro </label>
+                                        <input type="text" class="form-control  mb-3" name="secestreg" value="A" readonly></imput>                                       
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                              </div>
+                            </div>
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

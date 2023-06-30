@@ -16,6 +16,7 @@ def home():
     insertObject= []
     columnNames = [column[0] for column in cursor.description]
     for record in myresult:
+        print(record)
         insertObject.append(dict(zip(columnNames, record)))
     cursor.close()
     return render_template('index.html', data=insertObject)
@@ -34,14 +35,15 @@ def addSection():
         db.database.commit()
     return redirect(url_for('home'))
 
-@app.route('/delete/<string:seccod>')
-def delete(seccod):
-    cursor = db.database.cursor()
-    sql= "DELETE FROM lzz_seccion WHERE SecCod=%s"
-    data= (seccod, )
-    cursor.execute(sql,data)
-    db.database.commit()
-    return redirect(url_for('home'))
+# Funcion de eliminar registros a nivel físico
+#@app.route('/delete/<string:seccod>')
+#def delete(seccod):
+#    cursor = db.database.cursor()
+#    sql= "DELETE FROM lzz_seccion WHERE SecCod=%s"
+#    data= (seccod, )
+#    cursor.execute(sql,data)
+#    db.database.commit()
+#    return redirect(url_for('home'))
 
 @app.route('/edit/<string:seccod>', methods=['POST'])
 def edit(seccod):
