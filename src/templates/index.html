@@ -7,35 +7,35 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script>
-        function changeColor(){
-            document.getElementById("modify").setAttribute("class", "btn btn-primary")
-            document.getElementById("remove").setAttribute("class", "btn btn-primary")
-            document.getElementById("inactivate").setAttribute("class", "btn btn-primary")
-            document.getElementById("reactivate").setAttribute("class", "btn btn-primary")
+        function changeColor(val){
+            document.getElementById("modify"+val).setAttribute("class", "btn btn-primary")
+            document.getElementById("remove"+val).setAttribute("class", "btn btn-primary")
+            document.getElementById("inactivate"+val).setAttribute("class", "btn btn-primary")
+            document.getElementById("reactivate"+val).setAttribute("class", "btn btn-primary")
         }
-        function mod(){
-            changeColor()
-            document.getElementById("modify").setAttribute("class", "btn btn-success")
-            document.getElementById("nom").removeAttribute("readonly")
-            document.getElementById("est").setAttribute("value", "A")
+        function mod(val){
+            changeColor(val)
+            document.getElementById("modify"+val).setAttribute("class", "btn btn-success")
+            document.getElementById("nom"+val).removeAttribute("readonly")
+            document.getElementById("est"+val).setAttribute("value", "A")
         }
-        function del(){
-            changeColor()
-            document.getElementById("remove").setAttribute("class", "btn btn-danger")
-            document.getElementById("nom").setAttribute("readonly", "true")
-            document.getElementById("est").setAttribute("value", "*")
+        function del(val){
+            changeColor(val)
+            document.getElementById("remove"+val).setAttribute("class", "btn btn-danger")
+            document.getElementById("nom"+val).setAttribute("readonly", "true")
+            document.getElementById("est"+val).setAttribute("value", "*")
         }
-        function inac(){
-            changeColor()
-            document.getElementById("inactivate").setAttribute("class", "btn btn-success")
-            document.getElementById("nom").setAttribute("readonly", "true")
-            document.getElementById("est").setAttribute("value", "I")
+        function inac(val){
+            changeColor(val)
+            document.getElementById("inactivate"+val).setAttribute("class", "btn btn-success")
+            document.getElementById("nom"+val).setAttribute("readonly", "true")
+            document.getElementById("est"+val).setAttribute("value", "I")
         }
-        function reac(){
-            changeColor()
-            document.getElementById("reactivate").setAttribute("class", "btn btn-success")
-            document.getElementById("nom").setAttribute("readonly", "true")
-            document.getElementById("est").setAttribute("value", "A")
+        function reac(val){
+            changeColor(val)
+            document.getElementById("reactivate"+val).setAttribute("class", "btn btn-success")
+            document.getElementById("nom"+val).setAttribute("readonly", "true")
+            document.getElementById("est"+val).setAttribute("value", "A")
         }
     </script>
 </head>
@@ -72,26 +72,26 @@
                                 <div class="modal-body">
                                     <form action="/edit/{{d.SecCod}}" method="post">
                                         <label> Código</label>
-                                        <input type="text" class="form-control mb-3" id="cod" name="seccod" value="{{d.SecCod}}" readonly></input>
+                                        <input type="text" class="form-control mb-3" id="cod{{d.SecCod}}" name="seccod" value="{{d.SecCod}}" readonly></input>
                                         <label> Nombre</label>
-                                        <input type="text" class="form-control mb-3" id="nom" name="secnom" value="{{d.SecNom}}" readonly></input>
+                                        <input type="text" class="form-control mb-3" id="nom{{d.SecCod}}" name="secnom" value="{{d.SecNom}}" readonly></input>
                                         <label> Estado de Registro</label>
-                                        <input type="text" class="form-control mb-3" id="est" name="secestreg" value="{{d.SecEstReg.copy().pop()}}" readonly></input>
+                                        <input type="text" class="form-control mb-3" id="est{{d.SecCod}}" name="secestreg" value="{{d.SecEstReg.copy().pop()}}" readonly></input>
                                     
                                 </div>
                                 <div class="modal-footer">
                                     <div class="row mb-3">
                                         <div class="col">
-                                            <button type="button" id="modify" onclick="mod()" class="btn btn-primary">Modificar</button>
+                                            <button type="button" id="modify{{d.SecCod}}" onclick="mod('{{d.SecCod}}')" class="btn btn-primary">Modificar</button>
                                         </div>
                                         <div class="col">
-                                            <button type="button" id="remove" onclick="del()" class="btn btn-primary">Eliminar</button>
+                                            <button type="button" id="remove{{d.SecCod}}" onclick="del('{{d.SecCod}}')" class="btn btn-primary">Eliminar</button>
                                         </div>
                                         <div class="col">
-                                            <button type="button" id="inactivate" onclick="inac()" class="btn btn-primary">Inactivar</button>
+                                            <button type="button" id="inactivate{{d.SecCod}}" onclick="inac('{{d.SecCod}}')" class="btn btn-primary">Inactivar</button>
                                         </div>
                                         <div class="col">
-                                            <button type="button" id="reactivate" onclick="reac()" class="btn btn-primary">Reactivar</button>
+                                            <button type="button" id="reactivate{{d.SecCod}}" onclick="reac('{{d.SecCod}}')" class="btn btn-primary">Reactivar</button>
                                         </div>
                                     </div>
                                 </div>
