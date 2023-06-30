@@ -9,10 +9,9 @@ app= Flask(__name__, template_folder=template_dir)
 
 #Rutas
 @app.route('/')
-
 def home():
     cursor= db.database.cursor()
-    cursor.execute('SELECT * FROM users')
+    cursor.execute('SELECT * FROM lzz_seccion')
     myresult= cursor.fetchall()
     insertObject= []
     columnNames = [column[0] for column in cursor.description]
@@ -21,39 +20,39 @@ def home():
     cursor.close()
     return render_template('index.html', data=insertObject)
 
-@app.route('/user', methods=['POST'])
-def addUser():
-    userName= request.form['username']
-    name= request.form['name']
-    password= request.form['password']
+@app.route('/section', methods=['POST'])
+def addSection():
+    SecCod = request.form['seccod']
+    SecNom = request.form['secnom']
+    SecEstReg = request.form['secestreg']
 
-    if userName and name and password:
+    if SecCod and SecNom and SecEstReg:
         cursor= db.database.cursor()
-        sql= "INSERT INTO users (username,name,password) VALUES(%s,%s,%s)"
-        data = (userName,name,password)
+        sql= "INSERT INTO lzz_seccion (SecCod, SecNom, SecEstReg) VALUES(%s, %s, %s)"
+        data = (SecCod,SecNom,SecEstReg)
         cursor.execute(sql,data)    
         db.database.commit()
     return redirect(url_for('home'))
 
-@app.route('/delete/<string:id>')
-def delete(id):
+@app.route('/delete/<string:seccod>')
+def delete(seccod):
     cursor = db.database.cursor()
-    sql= "DELETE FROM users WHERE id=%s"
-    data= (id,)
+    sql= "DELETE FROM lzz_seccion WHERE SecCod=%s"
+    data= (seccod, )
     cursor.execute(sql,data)
     db.database.commit()
     return redirect(url_for('home'))
 
-@app.route('/edit/<string:id>', methods=['POST'])
-def edit(id):
-    userName= request.form['username']
-    name= request.form['name']
-    password= request.form['password']
+@app.route('/edit/<string:seccod>', methods=['POST'])
+def edit(seccod):
+    SecCod = request.form['seccod']
+    SecNom = request.form['secnom']
+    SecEstReg = request.form['secestreg']
 
-    if userName and name and password:
+    if SecCod and SecNom and SecEstReg:
         cursor= db.database.cursor()
-        sql= "UPDATE users SET username = %s, name = %s, password = %s WHERE id = %s"
-        data = (userName,name,password,id)
+        sql= "UPDATE lzz_seccion SET SecNom = %s, SecEstReg = %s WHERE SecCod = %s"
+        data = (SecNom,SecEstReg,SecCod)
         cursor.execute(sql,data)    
         db.database.commit()
     return redirect(url_for('home'))

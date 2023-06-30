@@ -8,24 +8,24 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1 class="text-center mt-5 nb-5 text-primary">TITULO DE LA PAGINA</h1>
+    <h1 class="text-center mt-5 nb-5 text-primary">Sección</h1>
 
     <div class="container">
         <div class="card shadow">
             <div class="card-body">
-                <form action="/user" method="POST">
+                <form action="/section" method="POST">
                     <div class="row mb-3">
                         <div class="col">
-                            <label> Username</label>
-                            <input type="text" class="form-control  mb-3" name="username"></imput>                            
+                            <label> Código de la Sección </label>
+                            <input type="text" class="form-control mb-3" name="seccod"></imput>                            
                         </div>
                         <div class="col">
-                            <label> Name</label>
-                            <input type="text" class="form-control  mb-3" name="name"></imput>
+                            <label> Nombre de la Sección </label>
+                            <input type="text" class="form-control mb-3" name="secnom"></imput>
                         </div>
                         <div class="col">
-                            <label> Password</label>
-                            <input type="text" class="form-control  mb-3" name="password"></imput>
+                            <label> Estado de Registro </label>
+                            <input type="text" class="form-control  mb-3" name="secestreg"></imput>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary mb-3 mt-4" type="submit">Guardar</button>
@@ -35,10 +35,9 @@
 
                 <table class="table table-bordered">
                     <thead>
-                        <th scope="col"> #</th>
-                        <th scope="col"> Username</th>
-                        <th scope="col"> Name</th>
-                        <th scope="col"> Password</th>
+                        <th scope="col"> Código de Sección</th>
+                        <th scope="col"> Nombre de Sección</th>
+                        <th scope="col"> Estado de Registro</th>
                         <th scope="col"> Editar</th>
                         <th scope="col"> Eliminar</th>
                     </thead>
@@ -46,29 +45,28 @@
                     <tbody>
                         {% for d in data %}
                         <tr>
-                            <td>{{d.id}}</td>
-                            <td>{{d.username}}</td>
-                            <td>{{d.name}}</td>
-                            <td>{{d.password}}</td>
-                            <td><button class="btn btn-primary btn-sm" id="btn-edit{{d.id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id}}">Editar</button></td>
-                            <td><a href="{{url_for('delete', id=d.id)}}" class="btn btn-danger btn-sm">Delete</a></td>
+                            <td>{{d.SecCod}}</td>
+                            <td>{{d.SecNom}}</td>
+                            <td>{{d.SecEstReg}}</td>
+                            <td><button class="btn btn-primary btn-sm" id="btn-edit{{d.SecCod}}" data-bs-toggle="modal" data-bs-target="#modal{{d.SecCod}}">Editar</button></td>
+                            <td><a href="{{url_for('delete', seccod=d.SecCod)}}" class="btn btn-danger btn-sm">Delete</a></td>
                         </tr>
 
-                        <div class="modal fade" id="modal{{d.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modal{{d.SecCod}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.username}}</h1>
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.SecCod}}</h1>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="/edit/{{d.id}}" method="post">
-                                        <label> Username</label>
-                                        <input type="text" class="form-control  mb-3" name="username" value="{{d.username}}"></imput>
-                                        <label> Name</label>
-                                        <input type="text" class="form-control  mb-3" name="name" value="{{d.name}}"></imput>
-                                        <label> Password</label>
-                                        <input type="text" class="form-control  mb-3" name="password" value="{{d.password}}"></imput>
+                                    <form action="/edit/{{d.SecCod}}" method="post">
+                                        <label> Código</label>
+                                        <input type="text" class="form-control  mb-3" name="seccod" value="{{d.SecCod}}"></imput>
+                                        <label> Nombre</label>
+                                        <input type="text" class="form-control  mb-3" name="secnom" value="{{d.SecNom}}"></imput>
+                                        <label> Estado de Registro</label>
+                                        <input type="text" class="form-control  mb-3" name="secestreg" value="{{d.SecEstReg}}"></imput>
                                     
                                 </div>
                                     <div class="modal-footer">
