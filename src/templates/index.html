@@ -25,53 +25,11 @@
                     <tbody>
                         {% for d in data %}
                         <tr>
-                            <td>{{d.SecCod}}</td>
-                            <td>{{d.SecNom}}</td>
-                            <td>{{d.SecEstReg.copy().pop()}}</td>
-                            <td><button class="btn btn-primary btn-sm" id="btn-edit{{d.SecCod}}" data-bs-toggle="modal" data-bs-target="#modal{{d.SecCod}}">Editar</button></td>
-                            </tr>
-
-                        <div class="modal fade" id="modal{{d.SecCod}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.SecNom}}</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="/edit/{{d.SecCod}}" method="post">
-                                        <label> Código</label>
-                                        <input type="text" class="form-control mb-3" id="cod{{d.SecCod}}" name="seccod" value="{{d.SecCod}}" readonly></input>
-                                        <label> Nombre</label>
-                                        <input type="text" class="form-control mb-3" id="nom{{d.SecCod}}" name="secnom" value="{{d.SecNom}}" readonly></input>
-                                        <label> Estado de Registro</label>
-                                        <input type="text" class="form-control mb-3" id="est{{d.SecCod}}" name="secestreg" value="{{d.SecEstReg.copy().pop()}}" readonly></input>
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <button type="button" id="modify{{d.SecCod}}" onclick="mod('{{d.SecCod}}')" class="btn btn-primary">Modificar</button>
-                                        </div>
-                                        <div class="col">
-                                            <button type="button" id="remove{{d.SecCod}}" onclick="del('{{d.SecCod}}')" class="btn btn-primary">Eliminar</button>
-                                        </div>
-                                        <div class="col">
-                                            <button type="button" id="inactivate{{d.SecCod}}" onclick="inac('{{d.SecCod}}')" class="btn btn-primary">Inactivar</button>
-                                        </div>
-                                        <div class="col">
-                                            <button type="button" id="reactivate{{d.SecCod}}" onclick="reac('{{d.SecCod}}')" class="btn btn-primary">Reactivar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                                    </div>
-                                </form>
-                              </div>
-                            </div>
-                        </div>
+                            <td id="cod{{d.SecCod}}" >{{d.SecCod}}</td>
+                            <td id="nom{{d.SecCod}}" >{{d.SecNom}}</td>
+                            <td id="est{{d.SecCod}}" >{{d.SecEstReg.copy().pop()}}</td>
+                            <td><button onclick="llenar('{{d.SecCod}}')" class="btn btn-primary btn-sm" id="btn-edit{{d.SecCod}}" data-bs-toggle="modal" data-bs-target="#modalCreate">Editar</button></td>
+                            </tr>                        
                         {% endfor %}
                     </tbody>
                 </table>    
@@ -83,29 +41,45 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col text-center">
-                        <button class="btn btn-primary btn-sm " data-bs-toggle="modal" data-bs-target="#modalCreate">Adicionar</button>
-
+                        <button onclick = "nuevo()" class="btn btn-primary btn-sm " data-bs-toggle="modal" data-bs-target="#modalCreate">Adicionar</button>
                         <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Ingresando nuevos datos</h1>
+                                  <h1 class="modal-title fs-5" id="titMod"> Añadiendo nueva Seccion </h1>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="/section" method="POST">
-                                        <label> Código de la Sección </label>
-                                        <input type="text" class="form-control mb-3" name="seccod"></imput>                                                                                                     
-                                        <label> Nombre de la Sección </label>
-                                        <input type="text" class="form-control mb-3" name="secnom"></imput>                                                                                     
-                                        <label> Estado de Registro </label>
-                                        <input type="text" class="form-control  mb-3" name="secestreg" value="A" readonly></imput>                                       
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-primary">Actualizar</button>
-                                        </div>
-                                    </form>
+                                    <form action="/edit/" method="post" id="formMod">
+                                        <label> Código</label>
+                                        <input type="text" class="form-control mb-3" id="codMod" name="seccod" readonly></input>
+                                        <label> Nombre</label>
+                                        <input type="text" class="form-control mb-3" id="nomMod" name="secnom" readonly></input>
+                                        <label> Estado de Registro</label>
+                                        <input type="text" class="form-control mb-3" id="estMod" name="secestreg" readonly></input>
+                                    
                                 </div>
+                                <div class="modal-footer">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <button type="button" id="modify" onclick="mod()" class="btn btn-primary">Modificar</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" id="remove" onclick="del()" class="btn btn-primary">Eliminar</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" id="inactivate" onclick="inac()" class="btn btn-primary">Inactivar</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" id="reactivate" onclick="reac()" class="btn btn-primary">Reactivar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    </div>
+                                </form>
                               </div>
                             </div>
                         </div>                      
