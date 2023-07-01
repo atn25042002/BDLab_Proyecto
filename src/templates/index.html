@@ -4,40 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Gestión de Inventarios</title>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script>
-        function changeColor(val){
-            document.getElementById("modify"+val).setAttribute("class", "btn btn-primary")
-            document.getElementById("remove"+val).setAttribute("class", "btn btn-primary")
-            document.getElementById("inactivate"+val).setAttribute("class", "btn btn-primary")
-            document.getElementById("reactivate"+val).setAttribute("class", "btn btn-primary")
-        }
-        function mod(val){
-            changeColor(val)
-            document.getElementById("modify"+val).setAttribute("class", "btn btn-success")
-            document.getElementById("nom"+val).removeAttribute("readonly")
-            document.getElementById("est"+val).setAttribute("value", "A")
-        }
-        function del(val){
-            changeColor(val)
-            document.getElementById("remove"+val).setAttribute("class", "btn btn-danger")
-            document.getElementById("nom"+val).setAttribute("readonly", "true")
-            document.getElementById("est"+val).setAttribute("value", "*")
-        }
-        function inac(val){
-            changeColor(val)
-            document.getElementById("inactivate"+val).setAttribute("class", "btn btn-success")
-            document.getElementById("nom"+val).setAttribute("readonly", "true")
-            document.getElementById("est"+val).setAttribute("value", "I")
-        }
-        function reac(val){
-            changeColor(val)
-            document.getElementById("reactivate"+val).setAttribute("class", "btn btn-success")
-            document.getElementById("nom"+val).setAttribute("readonly", "true")
-            document.getElementById("est"+val).setAttribute("value", "A")
-        }
-    </script>
 </head>
 <body>
     <h1 class="text-center mt-5 nb-5 text-primary">Sección</h1>
