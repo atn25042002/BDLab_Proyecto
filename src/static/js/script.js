@@ -9,49 +9,67 @@ function mod(){
     changeColor()
     document.getElementById("modify").setAttribute("class", "btn btn-success")
     document.getElementById("nomMod").removeAttribute("readonly")
-    document.getElementById("estMod").setAttribute("value", "A")
 }
-
+ //Arrglar la devolucion al cambiar de opcion
 function del(){
     changeColor()
+    //const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
+    //document.getElementById("nomMod").value= nom
     document.getElementById("remove").setAttribute("class", "btn btn-danger")
     document.getElementById("nomMod").setAttribute("readonly", "true")
-    document.getElementById("estMod").setAttribute("value", "*")
+    document.getElementById("estMod").value= ("*")
 }
 
 function inac(){
     changeColor()
+    //const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
+    //document.getElementById("nomMod").value= nom
     document.getElementById("inactivate").setAttribute("class", "btn btn-success")
     document.getElementById("nomMod").setAttribute("readonly", "true")
-    document.getElementById("estMod").setAttribute("value", "I")
+    document.getElementById("estMod").value= ("I")
 }
 
 function reac(){
     changeColor()
+    //const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
+    //document.getElementById("nomMod").value= nom
     document.getElementById("reactivate").setAttribute("class", "btn btn-success")
     document.getElementById("nomMod").setAttribute("readonly", "true")
-    document.getElementById("estMod").setAttribute("value", "A")
+    document.getElementById("estMod").value= ("A")
 }
 
 function nuevo(){
-    document.getElementById("titMod").setAttribute("value", "Agregando nuevo producto")
-    document.getElementById("codMod").setAttribute("value", "")
-    document.getElementById("nomMod").setAttribute("value", "")
-    document.getElementById("estMod").setAttribute("value", "")
+    document.getElementById("modify").setAttribute("disabled", "true")
+    document.getElementById("remove").setAttribute("disabled", "true")
+    document.getElementById("inactivate").setAttribute("disabled", "true")
+    document.getElementById("reactivate").setAttribute("disabled", "true")
 
-    document.getElementById("formMod").setAttribute("action", "/section/")
+    document.getElementById("titMod").innerHTML= ("Agregando nuevo producto")
+    document.getElementById("codMod").value = ""
+    document.getElementById("codMod").removeAttribute("readonly")
+    document.getElementById("nomMod").value = ""
+    document.getElementById("nomMod").removeAttribute("readonly")
+    document.getElementById("estMod").value = "A"
+
+    document.getElementById("formMod").setAttribute("action", "/section")
 }
 
 function llenar(val){
     document.getElementById("titMod").innerHTML= ("Editando " + val)
-    const cod= document.getElementById("cod" + val).innerHTML
-    document.getElementById("codMod").setAttribute("value", cod)
-    const nom= document.getElementById("nom" + val).innerHTML
-    document.getElementById("nomMod").setAttribute("value", nom)
-    const est= document.getElementById("est" + val).innerHTML
-    document.getElementById("estMod").setAttribute("value", est)
+    const cod= document.getElementById("cod" + val).textContent
+    document.getElementById("codMod").value= cod
+    document.getElementById("codMod").setAttribute("readonly", "true")
+    const nom= document.getElementById("nom" + val).textContent
+    document.getElementById("nomMod").value= nom    
+    document.getElementById("nomMod").removeAttribute("readonly")
+    changeColor()
+    document.getElementById("modify").setAttribute("class", "btn btn-success")
+    const est= document.getElementById("est" + val).textContent
+    document.getElementById("estMod").value= est
+    document.getElementById("formMod").setAttribute("action", "/edit/" + cod)    
 
-    document.getElementById("formMod").setAttribute("action", "/edit/" + cod)
-    ///edit/{{d.SecCod}}
-    //value="{{d.SecEstReg.copy().pop()}}" 
+    document.getElementById("modify").removeAttribute("disabled")
+    document.getElementById("remove").removeAttribute("disabled")
+    document.getElementById("inactivate").removeAttribute("disabled")
+    document.getElementById("reactivate").removeAttribute("disabled")
 }
