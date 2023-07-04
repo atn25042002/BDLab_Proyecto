@@ -1,3 +1,13 @@
+var ids= new Set();
+
+window.onload= function agregar(id){
+    let elementos = document.querySelectorAll(".cods");    
+    elementos.forEach(function(elemento) {
+        ids.add(elemento.id)
+    });
+    console.log(ids)
+}
+
 function changeColor(){
     document.getElementById("modify").setAttribute("class", "btn btn-primary")
     document.getElementById("remove").setAttribute("class", "btn btn-primary")
@@ -13,8 +23,8 @@ function mod(){
  //Arrglar la devolucion al cambiar de opcion
 function del(){
     changeColor()
-    //const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
-    //document.getElementById("nomMod").value= nom
+    const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
+    document.getElementById("nomMod").value= nom
     document.getElementById("remove").setAttribute("class", "btn btn-danger")
     document.getElementById("nomMod").setAttribute("readonly", "true")
     document.getElementById("estMod").value= ("*")
@@ -22,8 +32,8 @@ function del(){
 
 function inac(){
     changeColor()
-    //const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
-    //document.getElementById("nomMod").value= nom
+    const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
+    document.getElementById("nomMod").value= nom
     document.getElementById("inactivate").setAttribute("class", "btn btn-success")
     document.getElementById("nomMod").setAttribute("readonly", "true")
     document.getElementById("estMod").value= ("I")
@@ -31,8 +41,8 @@ function inac(){
 
 function reac(){
     changeColor()
-    //const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
-    //document.getElementById("nomMod").value= nom
+    const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
+    document.getElementById("nomMod").value= nom
     document.getElementById("reactivate").setAttribute("class", "btn btn-success")
     document.getElementById("nomMod").setAttribute("readonly", "true")
     document.getElementById("estMod").value= ("A")
@@ -54,6 +64,24 @@ function nuevo(){
     document.getElementById("formMod").setAttribute("action", "/section")
 }
 
+function verificar(){
+    const id= document.getElementById("codMod").value
+    const f= document.getElementById("formMod")
+    if(f.getAttribute("action") != '/section'){
+        f.submit()
+        return;
+    }
+
+    console.log("verificando")
+    console.log("Id ingresado: " + id)
+    if(ids.has("cod" + id)){
+        window.alert("Duplicado")
+    }else{
+        window.alert("Ingresando")
+        f.submit()
+    }
+}
+
 function llenar(val){
     document.getElementById("titMod").innerHTML= ("Editando " + val)
     const cod= document.getElementById("cod" + val).textContent
@@ -66,7 +94,7 @@ function llenar(val){
     document.getElementById("modify").setAttribute("class", "btn btn-success")
     const est= document.getElementById("est" + val).textContent
     document.getElementById("estMod").value= est
-    document.getElementById("formMod").setAttribute("action", "/edit/" + cod)    
+    document.getElementById("formMod").setAttribute("action", "/edit/" +val)
 
     document.getElementById("modify").removeAttribute("disabled")
     document.getElementById("remove").removeAttribute("disabled")
