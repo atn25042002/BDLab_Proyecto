@@ -82,7 +82,7 @@ function verificar(){
     }
 
 
-    if(f.getAttribute("action") != '/section'){
+    if(f.getAttribute("action") != "/section/add"){
         f.submit()
         return;
     }
@@ -124,7 +124,7 @@ function llenar(val){
     document.getElementById("modify").setAttribute("class", "btn btn-success")
     const est= document.getElementById("est" + val).textContent
     document.getElementById("estMod").value= est
-    document.getElementById("formMod").setAttribute("action", "/edit/" +val)
+    document.getElementById("formMod").setAttribute("action", "/section/edit/" +val)
 
     document.getElementById("modify").removeAttribute("disabled")
     document.getElementById("remove").removeAttribute("disabled")

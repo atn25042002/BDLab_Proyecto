@@ -8,8 +8,25 @@ template_dir = os.path.join(template_dir, 'src', 'templates')
 app= Flask(__name__, template_folder=template_dir, static_folder='static')
 
 #Rutas
+"""@app.route('/')
+def home():
+    cursor= db.database.cursor()
+    cursor.execute('SELECT * FROM lzz_seccion')
+    myresult= cursor.fetchall()
+    insertObject= []
+    columnNames = [column[0] for column in cursor.description]
+    for record in myresult:
+        print(record)
+        insertObject.append(dict(zip(columnNames, record)))
+    cursor.close()
+    return render_template('index.html', data=insertObject)"""
+
 @app.route('/')
 def home():
+    return render_template('main.html')
+
+@app.route('/section')
+def section():
     cursor= db.database.cursor()
     cursor.execute('SELECT * FROM lzz_seccion')
     myresult= cursor.fetchall()
@@ -21,9 +38,8 @@ def home():
     cursor.close()
     return render_template('index.html', data=insertObject)
 
-
 #@app.route('/<string:entidad>', methods=['POST'])
-@app.route('/section', methods=['POST'])
+@app.route('/section/add', methods=['POST'])
 def addSection():
     SecCod = request.form['seccod']
     SecNom = request.form['secnom']
@@ -35,7 +51,7 @@ def addSection():
         data = (SecCod,SecNom,SecEstReg)
         cursor.execute(sql,data)    
         db.database.commit()
-    return redirect(url_for('home'))
+    return redirect(url_for('section'))
 
 # Funcion de eliminar registros a nivel físico
 #@app.route('/delete/<string:seccod>')
@@ -47,7 +63,7 @@ def addSection():
 #    db.database.commit()
 #    return redirect(url_for('home'))
 
-@app.route('/edit/<string:seccod>', methods=['POST'])
+@app.route('/section/edit/<string:seccod>', methods=['POST'])
 def edit(seccod):
     SecCod = request.form['seccod']
     SecNom = request.form['secnom']
@@ -59,7 +75,7 @@ def edit(seccod):
         data = (SecNom,SecEstReg,SecCod)
         cursor.execute(sql,data)    
         db.database.commit()
-    return redirect(url_for('home'))
+    return redirect(url_for('section'))
 
 if __name__ == '__main__':
     app.run(debug=True, port= 4000)
