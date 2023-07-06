@@ -49,6 +49,8 @@ function reac(){
 }
 
 function nuevo(){
+    document.getElementById("codMod").removeAttribute("style")
+    document.getElementById("nomMod").removeAttribute("style")
     document.getElementById("modify").setAttribute("disabled", "true")
     document.getElementById("remove").setAttribute("disabled", "true")
     document.getElementById("inactivate").setAttribute("disabled", "true")
@@ -67,22 +69,50 @@ function nuevo(){
 function verificar(){
     const id= document.getElementById("codMod").value
     const f= document.getElementById("formMod")
+    if(id == ""){
+        //document.getElementById("ErCod").textContent = "¡Introduzca un codigo!"
+        document.getElementById("codMod").setAttribute("style","box-shadow: 0px 0px 1px 2px rgba(200, 0, 0, 0.5);")
+        return;
+    }
+    if(document.getElementById("nomMod").value == ""){
+        //document.getElementById("ErCod").textContent = "¡Introduzca el nombre del elemento!"
+        document.getElementById("codMod").removeAttribute("style")
+        document.getElementById("nomMod").setAttribute("style","box-shadow: 0px 0px 1px 2px rgba(200, 0, 0, 0.5);")
+        return;
+    }
+
+
     if(f.getAttribute("action") != '/section'){
         f.submit()
         return;
     }
-
     console.log("verificando")
     console.log("Id ingresado: " + id)
     if(ids.has("cod" + id)){
-        window.alert("Duplicado")
+        //window.alert("Duplicado")
+        Swal.fire({
+            title: 'Código Duplicado',
+            text: 'Ya existe un elemento con el mismo código',
+            icon: 'warning',
+            confirmButtonText: 'Aceptar',
+            timer: 3000
+          });
     }else{
-        window.alert("Ingresando")
-        f.submit()
+        Swal.fire({
+            title: 'Elemento registrado',
+            text: 'El elemento se registro exitosamente',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            timer: 3000
+          }).then(() => {
+            f.submit()
+          });        
     }
 }
 
 function llenar(val){
+    document.getElementById("codMod").removeAttribute("style")
+    document.getElementById("nomMod").removeAttribute("style")
     document.getElementById("titMod").innerHTML= ("Editando " + val)
     const cod= document.getElementById("cod" + val).textContent
     document.getElementById("codMod").value= cod

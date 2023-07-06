@@ -21,6 +21,8 @@ def home():
     cursor.close()
     return render_template('index.html', data=insertObject)
 
+
+#@app.route('/<string:entidad>', methods=['POST'])
 @app.route('/section', methods=['POST'])
 def addSection():
     SecCod = request.form['seccod']
