@@ -1,6 +1,8 @@
 var ids= new Set();
+var ent;
 
-window.onload= function agregar(id){
+window.onload= function agregar(){
+    ent= document.getElementById("h1").getAttribute("data-name")
     let elementos = document.querySelectorAll(".cods");    
     elementos.forEach(function(elemento) {
         ids.add(elemento.id)
@@ -63,7 +65,7 @@ function nuevo(){
     document.getElementById("nomMod").removeAttribute("readonly")
     document.getElementById("estMod").value = "A"
 
-    document.getElementById("formMod").setAttribute("action", "/section")
+    document.getElementById("formMod").setAttribute("action", "/" + ent + "/add")
 }
 
 function verificar(){
@@ -82,7 +84,7 @@ function verificar(){
     }
 
 
-    if(f.getAttribute("action") != "/section/add"){
+    if(f.getAttribute("action") != "/" + ent + "/add"){
         f.submit()
         return;
     }
@@ -124,7 +126,7 @@ function llenar(val){
     document.getElementById("modify").setAttribute("class", "btn btn-success")
     const est= document.getElementById("est" + val).textContent
     document.getElementById("estMod").value= est
-    document.getElementById("formMod").setAttribute("action", "/section/edit/" +val)
+    document.getElementById("formMod").setAttribute("action", "/" + ent +"/edit/" +val)
 
     document.getElementById("modify").removeAttribute("disabled")
     document.getElementById("remove").removeAttribute("disabled")
