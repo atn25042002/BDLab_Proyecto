@@ -58,7 +58,7 @@ function nuevo(){
     document.getElementById("inactivate").setAttribute("disabled", "true")
     document.getElementById("reactivate").setAttribute("disabled", "true")
 
-    document.getElementById("titMod").innerHTML= ("Agregando nuevo producto")
+    document.getElementById("titMod").innerHTML= ("Agregando " + ent)
     document.getElementById("codMod").value = ""
     document.getElementById("codMod").removeAttribute("readonly")
     document.getElementById("nomMod").value = ""
@@ -68,8 +68,11 @@ function nuevo(){
     document.getElementById("formMod").setAttribute("action", "/" + ent + "/add")
 }
 
-function verificar(){
+function verificar(campos){
+    console.log(campos)
+
     const id= document.getElementById("codMod").value
+    const nom= document.getElementById("nomMod").value
     const f= document.getElementById("formMod")
     if(id == ""){
         //document.getElementById("ErCod").textContent = "¡Introduzca un codigo!"
@@ -83,6 +86,21 @@ function verificar(){
         return;
     }
 
+    let elementos = document.querySelectorAll('[class="form-control mb-3"]');
+    for (let i = 0; i < elementos.length - 1; i++) {
+        const atr = elementos[i].value
+        if(campos[i][1] == 1){ //Verifica si el tipo de dato es numerico
+            if(isNaN(atr)){
+                aviso('Error en ' + campos[i][0], 'El código deber ser un número entero', 0)
+                return;
+            }
+        }
+
+        if(atr.length > campos[i][2]){ //Comprueba la longitud maximo del campo
+            aviso('Error en Campo ' + campos[i][0], 'La longitud de dato máxima es ' + campos[i][2], 0)
+            return;
+        }
+    }
 
     if(f.getAttribute("action") != "/" + ent + "/add"){
         f.submit()
@@ -92,23 +110,26 @@ function verificar(){
     console.log("Id ingresado: " + id)
     if(ids.has("cod" + id)){
         //window.alert("Duplicado")
-        Swal.fire({
+        /*Swal.fire({
             title: 'Código Duplicado',
             text: 'Ya existe un elemento con el mismo código',
             icon: 'warning',
             confirmButtonText: 'Aceptar',
             timer: 3000
-          });
+          }); */
+        aviso('Código Duplicado', 'Ya existe un elemento con el mismo código', 0)
     }else{
+        /*
         Swal.fire({
             title: 'Elemento registrado',
             text: 'El elemento se registro exitosamente',
             icon: 'success',
             confirmButtonText: 'Aceptar',
             timer: 3000
-          }).then(() => {
+          })*/
+        aviso('Elemento registrado', 'El elemento se registro exitosamente', 1).then(() => {
             f.submit()
-          });        
+        });
     }
 }
 
@@ -132,4 +153,20 @@ function llenar(val){
     document.getElementById("remove").removeAttribute("disabled")
     document.getElementById("inactivate").removeAttribute("disabled")
     document.getElementById("reactivate").removeAttribute("disabled")
+}
+
+function aviso(titulo, descr, tipo){
+    if(tipo == 1){
+        tipo= 'success'
+    }else{
+        tipo= 'warning'
+    }
+
+    return Swal.fire({
+        title: titulo,
+        text: descr,
+        icon: tipo,
+        confirmButtonText: 'Aceptar',
+        timer: 3000
+    });
 }
