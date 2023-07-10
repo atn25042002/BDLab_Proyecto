@@ -29,6 +29,25 @@ def show(entidad):
 
     return render_template('referencial.html', data=insertObject, name=entidad, campos= campos[entidad])
 
+@app.route('/tabla/<string:entidad>')
+def showTabla(entidad):
+    cursor= db.database.cursor()
+    nombre= atributos[entidad][0]    
+    print('SELECT * FROM ' + nombre)
+    cursor.execute('SELECT * FROM ' + nombre)
+    myresult= cursor.fetchall()
+    ncampos= len(campos[entidad])
+    columnNames = ["c"+str(i) for i in range(ncampos)]    
+    insertObject= []
+    
+    print(columnNames)
+    for record in myresult:
+        print(record)
+        insertObject.append(dict(zip(columnNames, record)))
+    cursor.close()
+
+    return render_template('general.html', data=myresult, name=entidad, campos= campos[entidad])
+
 #@app.route('/<string:entidad>', methods=['POST'])
 @app.route('/<string:entidad>/add', methods=['POST'])
 def addSection(entidad):

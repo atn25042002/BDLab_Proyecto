@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{name.upper()}}</title>
+    <script src="{{ url_for('static', filename='js/general.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <h1 id="h1" data-num= {{campos|length}} data-name="{{name}}" class="text-center mt-5 nb-5 text-primary">{{name.upper()}}</h1>
+    <h5 style="text-align: center;"><a href="/"> Ir a página principal</a></h5> 
+    <div class="container">
+        <div class="card shadow">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        {% for c in campos %}
+                            <th scope="col"> {{c[0]}} </th>
+                        {% endfor %}
+                        <th scope="col"> Estado de Registro</th>
+                        <th scope="col">  </th>
+                    </thead>
+
+                    <tbody>
+                        {% for d in data %}
+                        <tr>
+                            {% for i in range(campos|length) %}
+                                <td id="c{{i}}-{{d[0]}}" class="c{{i}}"> {{d[i]}} </td>
+                            {% endfor %}
+                                <td id="est-{{d[0]}}"> {{d[(campos|length)].copy().pop()}} </td>
+                            <td><button onclick="llenar('{{d[0]}}')" class="btn btn-primary btn-sm" id="btn-edit{{d.Cod}}" data-bs-toggle="modal" data-bs-target="#modalCreate">Editar</button></td>
+                        </tr>                        
+                        {% endfor %}
+                    </tbody>
+                </table>    
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col text-center">
+                        <button onclick = "nuevo()" class="btn btn-primary btn-sm " data-bs-toggle="modal" data-bs-target="#modalCreate">Adicionar</button>
+                        <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="titMod"> Añadiendo nueva Seccion </h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/{{entidad}}/edit" data-action="edit" method="post" id="formMod">
+                                        {% for i in range(campos|length) %}
+                                        <label> {{campos[i][0]}}</label>
+                                        <input type="text" class="form-control mb-3" id="mod{{i}}" name="input{{0}}" readonly placeholder="{{campos[i][0]}} del elemento"></input>
+                                        {% endfor %}
+                                        <label> Estado de Registro</label>
+                                        <input type="text" class="form-control mb-3" id="estMod" name="estForm" readonly></input>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <button type="button" id="modify" onclick="mod()" class="btn btn-primary">Modificar</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" id="remove" onclick="del()" class="btn btn-primary">Eliminar</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" id="inactivate" onclick="inac()" class="btn btn-primary">Inactivar</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" id="reactivate" onclick="reac()" class="btn btn-primary">Reactivar</button>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button onclick="verificar({{campos}})" class="btn btn-primary" id="btnact">Actualizar</button>
+                                    </div>
+                                
+                              </div>
+                            </div>
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
