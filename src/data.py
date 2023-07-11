@@ -3,7 +3,7 @@ atributos={
     'seccion' : ['lzz_seccion','SecCod', 'SecNom', 'SecEstReg'],
     'marca' : ['lzz_marca','MarCod', 'MarNom', 'MarEstReg'],
     'tipo_movimiento' : ['lzz_tipo_movimiento','TipMovCod', 'TipMovDes', 'TipMovEstReg'],
-    'tipo_ticket' : ['lzz_ticket','TipTickNro', 'TipTickDes', 'TipTickEstReg'],
+    'tipo_ticket' : ['lzz_tipo_ticket','TipTickNro', 'TipTickDes', 'TipTickEstReg'],
     'producto' : ['l1m_producto','ProCod', 'ProNom' , 'ProFecVenAño','ProFecVenMes','ProFecVenDia','ProStc','ProStcMin','ProStcMax','ProStcRsv', 'SecCod', 'MarCod','ProPreUni','UniMedNro','ProEstReg']
 }
 

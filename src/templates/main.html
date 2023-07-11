@@ -1,26 +1,211 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TABLAS REFERENCIALES</title>
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-</head>
-<body>
-    <h1>GESTION DE BASE DE DATOS</h1>
-    <h2>TABLAS REFERENCIALES</h1>
-        <ul>
-            <li><a href="/tabla/producto">Producto</a></li>
-            <li><a href="#">Otros</a></li>
-        </ul>
-    <h2>TABLAS REFERENCIALES</h1>
-    <ul>
-        <li><a href="/seccion">Seccion</a></li>
-        <li><a href="/marca">Marca</a></li>
-        <li><a href="/tipo_movimiento">Tipo de Movimiento</a></li>
-        <li><a href="/tipo_ticket">Tipo de ticket</a></li>
-    </ul>
-</body>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Gestión de Base de Datos</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Clarence Taylor</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{ url_for('static', filename='database.png') }}" alt="..." /></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#home">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#movements">Movimientos</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#clients">Clientes y Proveedores</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#products">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#others">Otros</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- Home-->
+            <section class="resume-section" id="home">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Gestión de 
+                        <span class="text-primary">Base de Datos</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        Proyecto realizado por <span class="text-primary">Anthony Aco</span>, <span class="text-primary">Fernando Coyla</span> y <span class="text-primary">Bryan Hancco</span>
+                    </div>
+                    <p class="lead mb-5">Texto introductorio</p>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Movimientos-->
+            <section class="resume-section" id="movements">
+                <div class="resume-section-content">
+                    <!-- <h2 class="mb-5">Movimientos</h2>-->
+                    <h2 class="mb-5"><span class="text-primary">Ticket</span></h2>
+                    <!-- Ticket Cabecera -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Cabecera</h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                    <!-- Ticket Detalle -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Detalle</h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                    <h2 class="mb-5"><span class="text-primary">Pedido</span></h2>
+                    <!-- Pedido Cabecera -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Cabecera</h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                    <!-- Pedido Detalle -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Detalle</h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                    <h2 class="mb-5"><span class="text-primary">Actualizacion de Inventario</span></h2>
+                    <!-- Actualizacion Inventario Cabecera -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Cabecera</h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                    <!-- Actualizacion Inventario Detalle -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Detalle</h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Clientes y Proveedores-->
+            <section class="resume-section" id="clients">
+                <div class="resume-section-content">
+                    <!-- <h2 class="mb-5">Clientes y Proveedores</h2> -->
+                    <!-- Persona Juridica -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h2 class="mb-0"><span class="text-primary">Persona Juridica</span></h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                    <!-- Persona Natural -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h2 class="mb-0"><span class="text-primary">Persona Natural</span></h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                    <!-- Proveedor -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h2 class="mb-0"><span class="text-primary">Proveedores</span></h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Productos-->
+            <section class="resume-section" id="products">
+                <div class="resume-section-content">
+                    <!-- <h2 class="mb-5">Productos</h2> -->
+                    <!-- Producto -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h2 class="mb-0"><span class="text-primary">Producto</span></h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="/tabla/producto">Ingresar/Modificar</a>
+                    </div>
+                    <!-- Marca -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h2 class="mb-0"><span class="text-primary">Marca</span></h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="/marca">Ingresar/Modificar</a>
+                    </div>
+                    <!-- Unidad de Medida -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h2 class="mb-0"><span class="text-primary">Unidad de Medida</span></h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="#">Ingresar/Modificar</a>
+                    </div>
+                    <!-- Seccion -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h2 class="mb-0"><span class="text-primary">Sección</span></h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="/seccion">Ingresar/Modificar</a>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Otros-->
+            <section class="resume-section" id="others">
+                <div class="resume-section-content">
+                    <!-- <h2 class="mb-5">Otros</h2> -->
+                    <!-- Tipo de Movimiento -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h2 class="mb-0"><span class="text-primary">Tipo de Movimiento</span></h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="/tipo_movimiento">Ingresar/Modificar</a>
+                    </div>
+                    <!-- Tipo de Ticket -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h2 class="mb-0"><span class="text-primary">Tipo de Ticket</span></h3>
+                            <p>Texto Resumen</p>
+                        </div>
+                        <a href="/tipo_ticket">Ingresar/Modificar</a>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    </body>
 </html>
