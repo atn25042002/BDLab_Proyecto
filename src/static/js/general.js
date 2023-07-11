@@ -53,7 +53,7 @@ function reac(){
 }
 
 function nuevo(){
-    for (let i = 0; i < num; i++) {
+    for (let i = 0; i < num-1; i++) {
         document.getElementById("mod" + i).value= ""
         document.getElementById("mod" + i).removeAttribute("style")
         document.getElementById("mod" + i).removeAttribute("readonly")
@@ -142,6 +142,7 @@ function llenar(val){
     document.getElementById("titMod").textContent= ("Editando: " + val + " - " + document.getElementById("c1-"+val).textContent)
     
     document.getElementById("mod0").setAttribute("readonly", "true")
+    document.getElementById("mod" + num).setAttribute("readonly", "true")
 
     changeColor()
     document.getElementById("modify").setAttribute("class", "btn btn-success")

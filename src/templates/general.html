@@ -19,19 +19,19 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         {% for c in campos %}
-                            <th scope="col"> {{c[0]}} </th>
+                            <th scope="col">{{c[0]}}</th>
                         {% endfor %}
-                        <th scope="col"> Estado de Registro</th>
-                        <th scope="col">  </th>
+                        <th scope="col">Estado de Registro</th>
+                        <th scope="col"></th>
                     </thead>
 
                     <tbody>
                         {% for d in data %}
                         <tr>
                             {% for i in range(campos|length) %}
-                                <td id="c{{i}}-{{d[0]}}" class="c{{i}}"> {{d[i]}} </td>
+                                <td id="c{{i}}-{{d[0]}}" class="c{{i}}" >{{d[i]}}</td>
                             {% endfor %}
-                                <td id="c{{campos|length}}-{{d[0]}}"> {{d[(campos|length)].copy().pop()}} </td>
+                                <td id="c{{campos|length}}-{{d[0]}}" >{{d[(campos|length)].copy().pop()}}</td>
                             <td><button onclick="llenar('{{d[0]}}')" class="btn btn-primary btn-sm" id="btn-edit{{d.Cod}}" data-bs-toggle="modal" data-bs-target="#modalCreate">Editar</button></td>
                         </tr>                        
                         {% endfor %}
@@ -56,10 +56,10 @@
                                 <div class="modal-body">
                                     <form action="/{{entidad}}/edit" data-action="edit" method="post" id="formMod">
                                         {% for i in range(campos|length) %}
-                                        <label> {{campos[i][0]}}</label>
+                                        <label >{{campos[i][0]}}</label>
                                         <input type="text" class="form-control mb-3" id="mod{{i}}" name="input{{i}}" readonly placeholder="{{campos[i][0]}} del elemento"></input>
                                         {% endfor %}
-                                        <label> Estado de Registro</label>
+                                        <label >Estado de Registro</label>
                                         <input type="text" class="form-control mb-3" id="mod{{campos|length}}" name="input{{campos|length}}" readonly></input>
                                     
                                 </div>
