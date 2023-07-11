@@ -48,6 +48,27 @@ def showTabla(entidad):
 
     return render_template('general.html', data=myresult, name=entidad, campos= campos[entidad])
 
+@app.route('/tabla/<string:entidad>/add')
+def addElement(entidad):
+    inputs=[]
+    num= len(campos[entidad])+1
+    for i in range(num):
+        inputs.append(request.form("input" + str(i)))
+
+    if inputs[0]:
+        cursor= db.database.cursor()            
+        cabecera= atributos[entidad].copy()
+        nombre= cabecera.pop(0) #nombre real de la tabla con sufijos
+        num_llaves = len(cabecera)
+        llaves = ",".join(["{}" for _ in range(num_llaves)])
+        sql= "INSERT INTO {} ({}) VALUES(%s, %s, %s)".format(nombre,llaves)        
+        sql= sql.format(*cabecera)
+        cursor.execute(sql,inputs)
+        db.database.commit()
+
+    print(inputs)
+    return redirect(url_for('showTabla',entidad= entidad))
+
 #@app.route('/<string:entidad>', methods=['POST'])
 @app.route('/<string:entidad>/add', methods=['POST'])
 def addSection(entidad):
@@ -78,6 +99,28 @@ def addSection(entidad):
 #    cursor.execute(sql,data)
 #    db.database.commit()
 #    return redirect(url_for('home'))
+
+@app.route('/tabla/<string:entidad>/edit/<string:seccod>', methods=['POST'])
+def editElement(seccod, entidad):
+    inputs=[]
+    num= len(campos[entidad])+1
+    for i in range(num):
+        inputs.append(request.form("input" + str(i)))
+
+    if Cod and Nom and EstReg:
+        cursor= db.database.cursor()
+        cabecera = atributos[entidad].copy()
+        nombre= cabecera.pop(0) #nombre real de la tabla con sufijos
+        id= cabecera.pop(0) 
+        num_llaves = len(cabecera)
+        llaves = ",".join(["{} = %s" for _ in range(num_llaves)])
+        sql= "UPDATE {} SET {} WHERE {} = %s".format(nombre,llaves,id)        
+        sql= sql.format(*cabecera)
+        #sql= "UPDATE lzz_{} SET {} = %s, {} = %s WHERE {} = %s".format(entidad, c[1], c[2], c[0])
+        data = (Nom,EstReg,Cod)
+        cursor.execute(sql,data)    
+        db.database.commit()
+    return redirect(url_for('show',entidad= entidad))
 
 @app.route('/<string:entidad>/edit/<string:seccod>', methods=['POST'])
 def edit(seccod, entidad):
