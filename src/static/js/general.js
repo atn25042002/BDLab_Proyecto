@@ -93,9 +93,14 @@ function verificar(campos){
 
     for (let i = 0; i < datos.length - 1; i++) {
         let atr = datos[i]
-        if(campos[i][1] == 1){ //Verifica si el tipo de dato es numerico
+        let c= campos[i][1]
+        if(c == 1 || c== 2){ //Verifica si el tipo de dato es numerico
             if(isNaN(atr)){
                 aviso('Error en ' + campos[i][0], 'El código deber ser un número entero', 0)
+                return;
+            } //1.32 12.1 12.20     123.0 1.321        0.00 99.99
+            if(c==2 && atr>= 100.0){
+                aviso('Error en ' + campos[i][0], 'El código deber ser un decimal menor que 100', 0)
                 return;
             }
         }
