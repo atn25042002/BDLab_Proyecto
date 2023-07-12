@@ -22,38 +22,43 @@ function changeColor(){
 function mod(){
     changeColor()
     document.getElementById("modify").setAttribute("class", "btn btn-success")
-    document.getElementById("nomMod").removeAttribute("readonly")
+    for (let i = 1; i < num; i++) {
+        document.getElementById("mod" + i).removeAttribute("readonly")
+    }
 }
  //Arrglar la devolucion al cambiar de opcion
 function del(){
     changeColor()
-    const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
-    document.getElementById("nomMod").value= nom
+    //Restarurar
     document.getElementById("remove").setAttribute("class", "btn btn-danger")
-    document.getElementById("nomMod").setAttribute("readonly", "true")
-    document.getElementById("estMod").value= ("*")
+    for (let i = 0; i < num; i++) {
+        document.getElementById("mod" + i).setAttribute("readonly", true)
+    }
+    document.getElementById("mod" + num).value= ("*")
 }
 
 function inac(){
     changeColor()
-    const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
-    document.getElementById("nomMod").value= nom
+    //restaura
     document.getElementById("inactivate").setAttribute("class", "btn btn-success")
-    document.getElementById("nomMod").setAttribute("readonly", "true")
-    document.getElementById("estMod").value= ("I")
+    for (let i = 0; i < num; i++) {
+        document.getElementById("mod" + i).setAttribute("readonly", true)
+    }
+    document.getElementById("mod" + num).value= ("I")
 }
 
 function reac(){
     changeColor()
-    const nom= document.getElementById("nom" + document.getElementById("codMod").value).textContent
-    document.getElementById("nomMod").value= nom
+    //restaurar
     document.getElementById("reactivate").setAttribute("class", "btn btn-success")
-    document.getElementById("nomMod").setAttribute("readonly", "true")
-    document.getElementById("estMod").value= ("A")
+    for (let i = 0; i < num; i++) {
+        document.getElementById("mod" + i).setAttribute("readonly", true)
+    }
+    document.getElementById("mod" + num).value= ("A")
 }
 
 function nuevo(){
-    for (let i = 0; i < num-1; i++) {
+    for (let i = 0; i < num; i++) {
         document.getElementById("mod" + i).value= ""
         document.getElementById("mod" + i).removeAttribute("style")
         document.getElementById("mod" + i).removeAttribute("readonly")
@@ -101,7 +106,7 @@ function verificar(campos){
     }
 
     f= document.getElementById("formMod")
-    if(f.getAttribute("action") != "/tabla" + ent + "/add"){
+    if(f.getAttribute("action") != "/tabla/" + ent + "/add"){
         f.submit()
         return;
     }

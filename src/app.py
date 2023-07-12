@@ -48,12 +48,12 @@ def showTabla(entidad):
 
     return render_template('general.html', data=myresult, name=entidad, campos= campos[entidad])
 
-@app.route('/tabla/<string:entidad>/add')
+@app.route('/tabla/<string:entidad>/add', methods=['POST'])
 def addElement(entidad):
     inputs=[]
     num= len(campos[entidad])+1
     for i in range(num):
-        inputs.append(request.form("input" + str(i)))
+        inputs.append(request.form["input" + str(i)])
 
     if inputs[0]:
         cursor= db.database.cursor()            
@@ -61,8 +61,11 @@ def addElement(entidad):
         nombre= cabecera.pop(0) #nombre real de la tabla con sufijos
         num_llaves = len(cabecera)
         llaves = ",".join(["{}" for _ in range(num_llaves)])
-        sql= "INSERT INTO {} ({}) VALUES(%s, %s, %s)".format(nombre,llaves)        
+        places = ",".join(["%s" for _ in range(num_llaves)])
+        sql= "INSERT INTO {} ({}) VALUES({})".format(nombre,llaves, places)        
         sql= sql.format(*cabecera)
+        print(sql)
+        print(inputs)
         cursor.execute(sql,inputs)
         db.database.commit()
 
@@ -105,22 +108,24 @@ def editElement(seccod, entidad):
     inputs=[]
     num= len(campos[entidad])+1
     for i in range(num):
-        inputs.append(request.form("input" + str(i)))
+        inputs.append(request.form["input" + str(i)])
 
-    if Cod and Nom and EstReg:
-        cursor= db.database.cursor()
-        cabecera = atributos[entidad].copy()
-        nombre= cabecera.pop(0) #nombre real de la tabla con sufijos
-        id= cabecera.pop(0) 
-        num_llaves = len(cabecera)
-        llaves = ",".join(["{} = %s" for _ in range(num_llaves)])
-        sql= "UPDATE {} SET {} WHERE {} = %s".format(nombre,llaves,id)        
-        sql= sql.format(*cabecera)
-        #sql= "UPDATE lzz_{} SET {} = %s, {} = %s WHERE {} = %s".format(entidad, c[1], c[2], c[0])
-        data = (Nom,EstReg,Cod)
-        cursor.execute(sql,data)    
-        db.database.commit()
-    return redirect(url_for('show',entidad= entidad))
+    cursor= db.database.cursor()
+    cabecera = atributos[entidad].copy()
+    nombre= cabecera.pop(0) #nombre real de la tabla con sufijos
+    id= cabecera.pop(0)
+    inputs.append(inputs.pop(0))
+    num_llaves = len(cabecera)
+    llaves = ",".join(["{} =%s" for _ in range(num_llaves)])
+    sql= "UPDATE {} SET {} WHERE {} = %s".format(nombre,llaves,id)     
+    sql= sql.format(*cabecera)
+    #sql= "UPDATE lzz_{} SET {} = %s, {} = %s WHERE {} = %s".format(entidad, c[1], c[2], c[0])
+    print(sql)
+    print(inputs)
+    cursor.execute(sql,inputs)    
+    db.database.commit()
+
+    return redirect(url_for('showTabla',entidad= entidad))
 
 @app.route('/<string:entidad>/edit/<string:seccod>', methods=['POST'])
 def edit(seccod, entidad):
