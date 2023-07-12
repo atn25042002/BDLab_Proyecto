@@ -69,7 +69,7 @@ function nuevo(){
     document.getElementById("inactivate").setAttribute("disabled", "true")
     document.getElementById("reactivate").setAttribute("disabled", "true")
 
-    document.getElementById("titMod").textContent= ("Agregando " + ent)   
+    document.getElementById("titMod").textContent= ("Agregando " + ent)
     document.getElementById("mod" + num).value = "A"
 
     document.getElementById("formMod").setAttribute("action", "/tabla/" + ent + "/add")

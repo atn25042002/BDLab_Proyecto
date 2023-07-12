@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import database as db
-from data import atributos, campos
+from data import atributos, campos, Consulta
 
 template_dir = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 template_dir = os.path.join(template_dir, 'src', 'templates')
@@ -32,11 +32,19 @@ def show(entidad):
 @app.route('/tabla/<string:entidad>')
 def showTabla(entidad):
     cursor= db.database.cursor()
-    nombre= atributos[entidad][0]    
+    cabecera= atributos[entidad].copy()
+    nombre= cabecera.pop(0)
+    foraneos= []
+    ncampos= len(campos[entidad])
+
+    for i in range(ncampos):
+        if campos[entidad][i][1]== 3:
+            foraneos.append(Consulta(cabecera[i]))
+
     print('SELECT * FROM ' + nombre)
     cursor.execute('SELECT * FROM ' + nombre)
     myresult= cursor.fetchall()
-    ncampos= len(campos[entidad])
+    
     columnNames = ["c"+str(i) for i in range(ncampos)]    
     insertObject= []
     
@@ -45,15 +53,16 @@ def showTabla(entidad):
         print(record)
         insertObject.append(dict(zip(columnNames, record)))
     cursor.close()
+    print(foraneos)
 
-    return render_template('general.html', data=myresult, name=entidad, campos= campos[entidad])
+    return render_template('general.html', data=myresult, name=entidad, campos= campos[entidad], foraneos= foraneos)
 
 @app.route('/tabla/<string:entidad>/add', methods=['POST'])
 def addElement(entidad):
     inputs=[]
     num= len(campos[entidad])+1
     for i in range(num):
-        inputs.append(request.form["input" + str(i)])
+        inputs.append(request.form.get("input" + str(i)))
 
     if inputs[0]:
         cursor= db.database.cursor()            

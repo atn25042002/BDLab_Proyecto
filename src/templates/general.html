@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <h1 id="h1" data-num= {{campos|length}} data-name="{{name}}" class="text-center mt-5 nb-5 text-primary">{{name.upper()}}</h1>
+    <h1 id="h1" data-foraneos={{foraneos}} data-num= {{campos|length}} data-name="{{name}}" class="text-center mt-5 nb-5 text-primary">{{name.upper()}}</h1>
     <h5 style="text-align: center;"><a href="/"> Ir a página principal</a></h5> 
     <div class="container">
         <div class="card shadow">
@@ -29,7 +29,7 @@
                         {% for d in data %}
                         <tr>
                             {% for i in range(campos|length) %}
-                                <td id="c{{i}}-{{d[0]}}" class="c{{i}}" >{{d[i]}}</td>
+                                <td id="c{{i}}-{{d[0]}}" class="req" >{{d[i]}}</td>
                             {% endfor %}
                                 <td id="c{{campos|length}}-{{d[0]}}" >{{d[(campos|length)].copy().pop()}}</td>
                             <td><button onclick="llenar('{{d[0]}}')" class="btn btn-primary btn-sm" id="btn-edit{{d.Cod}}" data-bs-toggle="modal" data-bs-target="#modalCreate">Editar</button></td>
@@ -57,7 +57,16 @@
                                     <form action="/{{entidad}}/edit" data-action="edit" method="post" id="formMod">
                                         {% for i in range(campos|length) %}
                                         <label >{{campos[i][0]}}</label>
+                                        {% if campos[i][1] ==  3%}
+                                        <select id="mod{{i}}" data-enlace="{{campos[i][0]}}" class="form-control mb-3" name="input{{i}}">
+                                            {% for j in range(foraneos[0]|length) %}
+                                                <option value={{foraneos[0][j][0]}}>{{foraneos[0][j][0]}}</option>
+                                            {% endfor %}                                            
+                                            {{foraneos.pop(0)}}
+                                        </select>
+                                        {% else %}                                        
                                         <input type="text" class="form-control mb-3" id="mod{{i}}" name="input{{i}}" readonly placeholder="{{campos[i][0]}} del elemento"></input>
+                                        {% endif %}
                                         {% endfor %}
                                         <label >Estado de Registro</label>
                                         <input type="text" class="form-control mb-3" id="mod{{campos|length}}" name="input{{campos|length}}" readonly></input>
