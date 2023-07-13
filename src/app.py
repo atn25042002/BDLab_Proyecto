@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import database as db
-from data import atributos, campos, Consulta
+from data import atributos, campos, Consulta, ConsultaDos
 
 template_dir = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 template_dir = os.path.join(template_dir, 'src', 'templates')
@@ -40,6 +40,8 @@ def showTabla(entidad):
     for i in range(ncampos):
         if campos[entidad][i][1]== 3:
             foraneos.append(Consulta(cabecera[i]))
+        elif campos[entidad][i][1]== 4:
+            foraneos.append(ConsultaDos(cabecera[i]))
 
     print('SELECT * FROM ' + nombre)
     cursor.execute('SELECT * FROM ' + nombre)

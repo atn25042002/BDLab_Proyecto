@@ -10,6 +10,17 @@ window.onload= function agregar(){
         ids.add(elemento.textContent)
     });
     console.log(ids)
+
+    const enlazados = document.querySelectorAll("[data-enlace]");
+
+    enlazados.forEach(function(elemento) {
+        const enlace = elemento.getAttribute("data-enlace");
+        if(enlace == 0)
+            return;
+        elemento.addEventListener("change", function(){
+            document.getElementById("mod" + enlace).selectedIndex = elemento.selectedIndex
+        });
+    });
 }
 
 function changeColor(){
