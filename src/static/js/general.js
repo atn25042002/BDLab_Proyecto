@@ -19,6 +19,7 @@ window.onload= function agregar(){
             return;
         elemento.addEventListener("change", function(){
             document.getElementById("mod" + enlace).selectedIndex = elemento.selectedIndex
+            document.getElementsByName("input" + enlace)[0].value= document.getElementById("mod" + enlace).value
         });
     });
 }
@@ -107,11 +108,11 @@ function verificar(campos){
         let c= campos[i][1]
         if(c == 1 || c== 2){ //Verifica si el tipo de dato es numerico
             if(isNaN(atr)){
-                aviso('Error en ' + campos[i][0], 'El código deber ser un número entero', 0)
+                aviso('Error en ' + campos[i][0], 'El valor deber ser un número entero', 0)
                 return;
             } //1.32 12.1 12.20     123.0 1.321        0.00 99.99
             if(c==2 && atr>= 100.0){
-                aviso('Error en ' + campos[i][0], 'El código deber ser un decimal menor que 100', 0)
+                aviso('Error en ' + campos[i][0], 'El valor deber ser un decimal menor que 100', 0)
                 return;
             }
         }
@@ -123,6 +124,7 @@ function verificar(campos){
 
     f= document.getElementById("formMod")
     if(f.getAttribute("action") != "/tabla/" + ent + "/add"){
+
         f.submit()
         return;
     }
@@ -160,6 +162,11 @@ function llenar(val){
         document.getElementById("mod" + i).removeAttribute("style")
         document.getElementById("mod" + i).removeAttribute("readonly")
     }
+    const ocultos = document.querySelectorAll("[data-select]");
+    ocultos.forEach(function(oculto) {
+        const mod = oculto.getAttribute("data-select");
+        oculto.value= document.getElementById(mod).value;        
+    });
     document.getElementById("titMod").textContent= ("Editando: " + val + " - " + document.getElementById("c1-"+val).textContent)
     
     document.getElementById("mod0").setAttribute("readonly", "true")

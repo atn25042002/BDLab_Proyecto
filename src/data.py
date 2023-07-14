@@ -21,7 +21,7 @@ atributos={
 
 #Maneja el formato o restricciones que debe un valor para poder ingresarlos
 campos={
-    #[nombre del atributo, tipo(1 si es numerico), longitud maxima, dependencia]
+    #[nombre del atributo, tipo(1 si es numerico), longitud maxima, dependencia(si la hubiera)]
     #0: Caracteres    1: Entero     2:Decimal    3:Llave foranea 
     'seccion' : [ ['Código de la Sección',0,6] , ['Nombre de la Seccion',0,60] ],
     'marca' : [['Código de la marca',0,6],['Nombre de la marca',0,60]],

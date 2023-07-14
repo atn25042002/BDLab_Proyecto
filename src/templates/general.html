@@ -61,7 +61,8 @@
                                         {% if campos[i][1] == 3 %}
                                         <select id="mod{{i}}" data-enlace="{{campos[i][3]}}" class="form-control mb-3" name="input{{i}}">
                                         {% else %}
-                                        <select id="mod{{i}}" class="form-control mb-3" name="input{{i}}" disabled>
+                                        <input type="hidden" data-select="mod{{i}}" name="input{{i}}" value="">
+                                        <select id="mod{{i}}" class="form-control mb-3" disabled>
                                         {% endif %}
                                             {% for j in range(foraneos[0]|length) %}
                                                 <option value={{foraneos[0][j][0]}}>{{foraneos[0][j][0]}}</option>
