@@ -15,7 +15,7 @@ app= Flask(__name__, template_folder=template_dir, static_folder='static')
 def home():
     return render_template('main.html')
 
-@app.route('/<string:entidad>')
+@app.route('/<string:entidad>') #Para la tablas referenciales
 def show(entidad):
     cursor= db.database.cursor()
     nombre= atributos[entidad][0]
@@ -29,7 +29,7 @@ def show(entidad):
 
     return render_template('referencial.html', data=insertObject, name=entidad, campos= campos[entidad])
 
-@app.route('/tabla/<string:entidad>')
+@app.route('/tabla/<string:entidad>') #Para las demas tablas
 def showTabla(entidad):
     cursor= db.database.cursor()
     cabecera= atributos[entidad].copy()
@@ -59,7 +59,7 @@ def showTabla(entidad):
 
     return render_template('general.html', data=myresult, name=entidad, campos= campos[entidad], foraneos= foraneos)
 
-@app.route('/tabla/<string:entidad>/add', methods=['POST'])
+@app.route('/tabla/<string:entidad>/add', methods=['POST']) #Agregar a tablas
 def addElement(entidad):
     inputs=[]
     num= len(campos[entidad])+1
@@ -84,7 +84,7 @@ def addElement(entidad):
     return redirect(url_for('showTabla',entidad= entidad))
 
 #@app.route('/<string:entidad>', methods=['POST'])
-@app.route('/<string:entidad>/add', methods=['POST'])
+@app.route('/<string:entidad>/add', methods=['POST']) #Agregar a tablas referenciales
 def addSection(entidad):
     Cod = request.form['codForm']
     Nom = request.form['nomForm']
@@ -115,7 +115,7 @@ def addSection(entidad):
 #    return redirect(url_for('home'))
 
 @app.route('/tabla/<string:entidad>/edit/<string:seccod>', methods=['POST'])
-def editElement(seccod, entidad):
+def editElement(seccod, entidad): # Editar en tablas
     inputs=[]
     num= len(campos[entidad])+1
     for i in range(num):
@@ -139,7 +139,7 @@ def editElement(seccod, entidad):
     return redirect(url_for('showTabla',entidad= entidad))
 
 @app.route('/<string:entidad>/edit/<string:seccod>', methods=['POST'])
-def edit(seccod, entidad):
+def edit(seccod, entidad): #Editar en tablas referenciales
     Cod = request.form['codForm']
     Nom = request.form['nomForm']
     EstReg = request.form['estForm']

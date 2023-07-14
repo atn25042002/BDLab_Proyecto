@@ -42,7 +42,7 @@ campos={
     'act_inven_detalle' : [['Numero de Actualizacion de Inventario Detalle',1,8],['Codigo de Actualizacion de Inventario Cabecera',3,10],['Codigo de Producto',3,12],['Cantidad de Producto en Actualizacion de Inventario Detalle',1,4],['Detalles/Motivos en Actualizacion de Inventario Detalle',0,60]]
 }
 
-enlaces={
+enlaces={ #Llaves foraneas
     'MarCod' : 'marca',#[marca,MarNom]
     'SecCod' : 'seccion',
     'UniMedNro' : 'unidad_medida',
@@ -57,26 +57,26 @@ enlaces={
     'PerNatCod' : 'persona_natural',
 }
 
-doble={
+doble={ #Campos derivados de la llave foranea
     'TickDetPreUni': ['producto','ProPreUni'],
 }
 
-def Consulta(campor):
+def Consulta(campor): #Llave foranea
     #Si tiene enlace
     cursor= db.database.cursor()
     print(campor)
-    print('SELECT ' + campor + ' FROM ' + atributos[enlaces[campor]][0])
-    cursor.execute('SELECT ' + campor + ' FROM ' + atributos[enlaces[campor]][0])
+    #print('SELECT ' + campor + ' FROM ' + atributos[enlaces[campor]][0])
+    cursor.execute('SELECT ' + campor + ' FROM ' + atributos[enlaces[campor]][0] + ' ORDER BY ' + campor + ' ASC') 
     myresult= cursor.fetchall()
     cursor.close()
     return myresult
 
-def ConsultaDos(campor):
+def ConsultaDos(campor): #Campos derivados de la llave foranea
     #Si tiene enlace
     cursor= db.database.cursor()
-    print(campor)
-    print('SELECT ' + doble[campor][1] + ' FROM ' + atributos[doble[campor][0]][0])
-    cursor.execute('SELECT ' + doble[campor][1] + ' FROM ' + atributos[doble[campor][0]][0])
+    #print(campor)
+    #print('SELECT ' + doble[campor][1] + ' FROM ' + atributos[doble[campor][0]][0])
+    cursor.execute('SELECT ' + doble[campor][1] + ' FROM ' + atributos[doble[campor][0]][0] + ' ORDER BY ' + atributos[doble[campor][0]][1] + ' ASC')
     myresult= cursor.fetchall()
     cursor.close()
     return myresult
