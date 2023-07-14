@@ -46,6 +46,7 @@ enlaces={
     'MarCod' : 'marca',#[marca,MarNom]
     'SecCod' : 'seccion',
     'UniMedNro' : 'unidad_medida',
+    'ProvCod' : 'proveedor',
     'ProCod' : 'producto',
     'TipMovCod' : 'tipo_movimiento',
     'TipTickNro' : 'tipo_ticket',
