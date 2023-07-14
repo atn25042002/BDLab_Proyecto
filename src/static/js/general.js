@@ -111,8 +111,8 @@ function verificar(campos){
                 aviso('Error en ' + campos[i][0], 'El valor deber ser un número entero', 0)
                 return;
             } //1.32 12.1 12.20     123.0 1.321        0.00 99.99
-            if(c==2 && atr>= 100.0){
-                aviso('Error en ' + campos[i][0], 'El valor deber ser un decimal menor que 100', 0)
+            if(c==2 && atr>= 10000.0){
+                aviso('Error en ' + campos[i][0], 'El valor deber ser un decimal menor que 10000', 0)
                 return;
             }
         }
@@ -195,6 +195,6 @@ function aviso(titulo, descr, tipo){
         text: descr,
         icon: tipo,
         confirmButtonText: 'Aceptar',
-        timer: 3000
+        timer: 4000
     });
 }
