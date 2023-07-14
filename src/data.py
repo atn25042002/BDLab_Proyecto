@@ -9,16 +9,14 @@ atributos={
     'producto' : ['l1m_producto','ProCod', 'ProNom' , 'ProFecVenAño','ProFecVenMes','ProFecVenDia','ProStc','ProStcMin','ProStcMax','ProStcRsv', 'SecCod', 'MarCod','ProPreUni','UniMedNro','ProEstReg'],
     'proveedor' : ['l2m_proveedor','ProvCod','ProvNom','ProvNumCel','ProvDir','ProvEstReg'],
     'pedido_cabecera' : ['g2t_ped_cab','PedCabCod','ProvCod','PedCabPedAño','PedCabPedMes','PedCabPedDia','PedCabEntrAño','PedCabEntrMes','PedCabEntrDia','PedCabEstReg'],
-    'pedido_detalle' : ['g2t_ped_det','PedDetNro','PedCabCod','ProCod','PedDetProCan','PedDetProPreUni','PedDetProPreTot','PedDetObs'],
+    'pedido_detalle' : ['g2t_ped_det','PedDetNro','PedCabCod','ProCod','PedDetProCan','PedDetProPreUni','PedDetProPreTot','PedDetObs', 'PedDetEstReg'],
     'persona_juridica' : ['l2m_persona_juridica','PerJurCod','PerJurRazSoc','PerJurNumCel','PerJurEstReg'],
     'persona_natural' : ['l2m_persona_natural','PerNatCod','PerNatNom','PerNatNumCel','PerNatEstReg'],
     'ticket_cabecera' : ['g2t_ticket_cab','TickCabCod','PerJurCod','PerNatCod','TickCabAño','TickCabMes','TickCabDia','TipTickNro','TickCabEstReg'],
-    'ticket_detalle' : ['g2t_ticket_det','TickDetNro','TickCabCod','ProCod','TickDetCanPro','TickDetPreUni','TickDetPreTot'],
+    'ticket_detalle' : ['g2t_ticket_det','TickDetNro','TickCabCod','ProCod','TickDetCanPro','TickDetPreUni','TickDetPreTot','TickDetEstReg'],
     'unidad_medida' : ['g2m_unidad_medida','UniMedNro','UniMedDescCor','UniMedDescLar','UniMedEstReg'],
     'act_inven_cabecera' : ['g2c_act_inventario_cab','ActInvCabCod','ActInvFecAño','ActInvFecMes','ActInvFecDia','TipMovCod','ActInvEstReg'],
-    'act_inven_detalle' : ['g2c_act_inventario_det','ActInvDetNro','ActInvCabCod','ProCod','ActInvDetCanPro','ActInvDetMot']
-
-
+    'act_inven_detalle' : ['g2c_act_inventario_det','ActInvDetNro','ActInvCabCod','ProCod','ActInvDetCanPro','ActInvDetMot','ActInvDetEstReg']
 }
 
 #Maneja el formato o restricciones que debe un valor para poder ingresarlos
