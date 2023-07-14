@@ -15,9 +15,12 @@ window.onload= function agregar(){
 
     enlazados.forEach(function(elemento) {
         const enlace = elemento.getAttribute("data-enlace");
-        if(enlace == 0)
-            return;
+        const num = elemento.getAttribute("id").substring(3);
+
         elemento.addEventListener("change", function(){
+            document.getElementsByName("input" + num)[0].value= elemento.value
+            if(enlace == 0)
+                return;
             document.getElementById("mod" + enlace).selectedIndex = elemento.selectedIndex
             document.getElementsByName("input" + enlace)[0].value= document.getElementById("mod" + enlace).value
         });
@@ -37,6 +40,10 @@ function mod(){
     for (let i = 1; i < num; i++) {
         document.getElementById("mod" + i).removeAttribute("readonly")
     }
+    const list = document.querySelectorAll("[data-enlace]");
+    list.forEach(function(campo) {
+        campo.removeAttribute("disabled")       
+    });
 }
  //Arrglar la devolucion al cambiar de opcion
 function del(){
@@ -46,6 +53,10 @@ function del(){
     for (let i = 0; i < num; i++) {
         document.getElementById("mod" + i).setAttribute("readonly", true)
     }
+    const list = document.querySelectorAll("[data-enlace]");
+    list.forEach(function(campo) {
+        campo.setAttribute("disabled", true)       
+    });
     document.getElementById("mod" + num).value= ("*")
 }
 
@@ -56,6 +67,10 @@ function inac(){
     for (let i = 0; i < num; i++) {
         document.getElementById("mod" + i).setAttribute("readonly", true)
     }
+    const list = document.querySelectorAll("[data-enlace]");
+    list.forEach(function(campo) {
+        campo.setAttribute("disabled", true)       
+    });
     document.getElementById("mod" + num).value= ("I")
 }
 
@@ -66,6 +81,10 @@ function reac(){
     for (let i = 0; i < num; i++) {
         document.getElementById("mod" + i).setAttribute("readonly", true)
     }
+    const list = document.querySelectorAll("[data-enlace]");
+    list.forEach(function(campo) {
+        campo.setAttribute("disabled", true)       
+    });
     document.getElementById("mod" + num).value= ("A")
 }
 
@@ -167,6 +186,12 @@ function llenar(val){
         const mod = oculto.getAttribute("data-select");
         oculto.value= document.getElementById(mod).value;        
     });
+
+    const list = document.querySelectorAll("[data-enlace]");
+    list.forEach(function(campo) {
+        campo.removeAttribute("disabled")       
+    });
+
     document.getElementById("titMod").textContent= ("Editando: " + val + " - " + document.getElementById("c1-"+val).textContent)
     
     document.getElementById("mod0").setAttribute("readonly", "true")
