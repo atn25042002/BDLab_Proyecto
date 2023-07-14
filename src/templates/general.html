@@ -29,7 +29,7 @@
                         {% for d in data %}
                         <tr>
                             {% for i in range(campos|length) %}
-                                <td id="c{{i}}-{{d[0]}}" class="req" >{{d[i]}}</td>
+                                <td id="c{{i}}-{{d[0]}}" class="c{{i}}">{{d[i]}}</td>
                             {% endfor %}
                                 <td id="c{{campos|length}}-{{d[0]}}" >{{d[(campos|length)].copy().pop()}}</td>
                             <td><button onclick="llenar('{{d[0]}}')" class="btn btn-primary btn-sm" id="btn-edit{{d.Cod}}" data-bs-toggle="modal" data-bs-target="#modalCreate">Editar</button></td>
